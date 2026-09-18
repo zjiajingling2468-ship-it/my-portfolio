@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>郑佳 · 个人作品集</title>
+<style>
+  :root{
+    --bg:#FAF7F2; --surface:#FFFFFF; --line:#EFE8DE;
+    --ink:#1F1D1A; --muted:#8A8378;
+    --accent:#B08A5A; --accent-deep:#96703F; --chip:#F6F0E7;
+    --shadow:0 10px 30px rgba(30,25,20,.06);
+    --shadow-hover:0 16px 40px rgba(30,25,20,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  .demo-banner{text-align:center;font-size:12px;color:var(--muted);padding:8px 16px;letter-spacing:.04em}
+  /* ===== 导航 ===== */
+  .nav{
+    position:fixed;top:14px;left:50%;transform:translateX(-50%);
+    width:min(1100px,calc(100% - 24px));
+    background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:16px;padding:10px 18px;z-index:50;
+  }
+  .nav .avatar{width:32px;height:32px;border-radius:50%;flex:none;
+    background:linear-gradient(135deg,#E8D9C3,#B08A5A);
+    display:flex;align-items:center;justify-content:center;font-size:15px}
+  .nav .brand{font-weight:800;letter-spacing:.18em;font-size:13px}
+  .nav .links{display:flex;gap:4px;margin:0 auto}
+  .nav .links a{text-decoration:none;color:var(--ink);font-size:13.5px;
+    padding:7px 13px;border-radius:999px;transition:background .25s,color .25s}
+  .nav .links a:hover{background:var(--chip)}
+  .nav .links a.active{background:var(--ink);color:#fff}
+  .nav .resume{flex:none;text-decoration:none;color:var(--ink);font-size:13px;
+    border:1.5px solid var(--ink);border-radius:999px;padding:7px 15px;
+    transition:background .25s,color .25s}
+  .nav .resume:hover{background:var(--ink);color:#fff}
+  /* ===== 首屏 ===== */
+  .hero{min-height:100svh;
+    background:linear-gradient(120deg,#EAF3EC 0%,#FAF7F2 48%,#F8ECE9 100%);
+    display:flex;align-items:center;padding:120px 20px 70px;position:relative}
+  .hero-inner{width:min(1120px,100%);margin:0 auto;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;
+    border:1px solid var(--line);border-radius:999px;padding:7px 15px;
+    font-size:13px;color:var(--muted);box-shadow:var(--shadow)}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:#8FBF9F}
+  .hero h1{font-size:clamp(40px,6.5vw,66px);font-weight:800;line-height:1.18;
+    margin:22px 0 10px;letter-spacing:.01em}
+  .name-wrap{position:relative;display:inline-block}
+  .name-wrap svg{position:absolute;left:50%;top:50%;
+    transform:translate(-50%,-58%) rotate(-8deg);width:1.5em;height:auto;pointer-events:none}
+  .role{font-size:clamp(16px,2.2vw,21px);font-weight:700;color:var(--accent);
+    letter-spacing:.04em;margin-bottom:20px}
+  .motto{background:#fff;border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);padding:14px 18px;font-size:14.5px;margin-bottom:16px;max-width:540px}
+  .motto b{color:var(--accent);font-weight:700;margin-right:8px;font-size:13px}
+  .intro{color:#4B463F;font-size:15px;max-width:540px;margin-bottom:20px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .hero .chips{margin-bottom:26px}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;
+    padding:6px 14px;font-size:13px;color:#5E5648;transition:background .25s,transform .25s}
+  .chip:hover{background:#EFE4D2;transform:translateY(-2px)}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{text-decoration:none;font-size:14.5px;border-radius:999px;padding:12px 26px;
+    transition:transform .25s,box-shadow .25s,background .25s,color .25s;display:inline-block}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .btn-line{border:1.5px solid var(--ink);color:var(--ink)}
+  .btn-line:hover{background:var(--ink);color:#fff}
+  .photo-col{position:relative;justify-self:center}
+  .photo-card{width:min(330px,80vw);aspect-ratio:3/3.7;background:#fff;border-radius:24px;
+    padding:12px;box-shadow:var(--shadow-hover);transform:rotate(-2deg);transition:transform .4s}
+  .photo-card:hover{transform:rotate(0)}
+  .photo-ph{width:100%;height:100%;border-radius:16px;
+    background:linear-gradient(160deg,#F3E7D6,#E4D2BA 55%,#D9C2A4);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;color:#8A7355;font-size:13.5px;letter-spacing:.05em}
+  .photo-ph span{font-size:42px}
+  .now-card{position:absolute;right:-14px;bottom:26px;background:#fff;
+    border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-hover);
+    padding:10px 16px;font-size:12.5px;transform:rotate(2deg);line-height:1.55}
+  .now-card em{font-style:normal;color:var(--accent);font-weight:800;
+    letter-spacing:.25em;font-size:10.5px;display:block;margin-bottom:2px}
+  .scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+    animation:floaty 2.6s ease-in-out infinite;white-space:nowrap}
+  @keyframes floaty{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-7px)}}
+  /* ===== 通用 ===== */
+  section{padding:104px 20px}
+  .wrap{width:min(1120px,100%);margin:0 auto}
+  .eyebrow{text-align:center;color:var(--accent);font-weight:700;
+    letter-spacing:.35em;font-size:12px;margin-bottom:12px}
+  .sec-title{text-align:center;font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:12px}
+  .sec-sub{text-align:center;color:var(--muted);font-size:14.5px;margin-bottom:52px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:24px;
+    box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+  /* ===== 教育背景 ===== */
+  .school-single{max-width:760px;margin:0 auto 26px;overflow:hidden}
+  .school-single .img{height:210px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:6px;color:#fff;font-size:14px;letter-spacing:.1em;
+    background:linear-gradient(135deg,#9DB8D2,#6E8FB3)}
+  .school-single .img span{font-size:40px}
+  .school-single .body{padding:24px 30px 28px;text-align:center}
+  .school-single .date{color:var(--accent);font-weight:700;font-size:14px}
+  .school-single .deg{color:var(--muted);font-size:13.5px;margin:3px 0 8px}
+  .school-single h3{font-size:24px;font-weight:800;margin-bottom:6px}
+  .school-single p{font-size:14px;color:#5E5850}
+  .info-card{padding:26px 28px;margin-bottom:24px}
+  .info-card h4{font-size:16.5px;font-weight:800;margin-bottom:16px}
+  .courses{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .course{background:var(--chip);border:1px solid var(--line);border-radius:14px;
+    padding:15px 12px;text-align:center;font-size:14px;font-weight:600;color:#4B463F}
+  /* ===== 工作经历 ===== */
+  .timeline{position:relative;max-width:860px;margin:0 auto;
+    display:flex;flex-direction:column;gap:28px}
+  .timeline::before{content:"";position:absolute;left:22px;top:10px;bottom:10px;
+    width:2px;background:var(--line)}
+  .t-item{position:relative;padding-left:68px}
+  .t-num{position:absolute;left:0;top:4px;width:45px;height:45px;border-radius:50%;
+    background:#fff;border:1.5px solid var(--accent);color:var(--accent);
+    font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow)}
+  .t-card{padding:24px 28px}
+  .t-card .date{color:var(--accent);font-weight:700;font-size:13.5px;margin-bottom:4px}
+  .t-card h3{font-size:19px;font-weight:800;display:inline-block;margin-right:10px}
+  .t-card .en{color:var(--muted);font-size:12.5px;letter-spacing:.06em}
+  .t-card .pos{display:inline-block;background:var(--chip);border:1px solid var(--line);
+    border-radius:999px;padding:4px 12px;font-size:12.5px;color:#5E5648;margin:8px 0 12px}
+  .t-card ul{list-style:none}
+  .t-card li{font-size:14px;color:#4B463F;padding-left:16px;position:relative;margin-bottom:7px}
+  .t-card li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;
+    border-radius:50%;background:var(--accent)}
+  /* ===== 项目展示 ===== */
+  .proj-list{display:flex;flex-direction:column;gap:28px}
+  .proj-card{padding:30px 34px;display:grid;grid-template-columns:1.25fr .75fr;
+    gap:30px;align-items:center}
+  .p-num{width:45px;height:45px;border-radius:50%;background:var(--accent);color:#fff;
+    font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .p-meta{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.08em;margin-bottom:4px}
+  .proj-card h3{font-size:21px;font-weight:800;margin-bottom:2px}
+  .p-role{color:var(--muted);font-size:13px;margin-bottom:12px}
+  .proj-card ul{list-style:none;margin-bottom:16px}
+  .proj-card li{font-size:14px;color:#4B463F;padding-left:16px;position:relative;margin-bottom:7px}
+  .proj-card li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;
+    border-radius:50%;background:var(--accent)}
+  .p-img{height:220px;border-radius:16px;border:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    color:#8A7355;font-size:13px;letter-spacing:.05em}
+  .p-img span{font-size:38px}
+  .p-img.a{background:linear-gradient(150deg,#F6E7E2,#EBCFC4)}
+  .p-img.b{background:linear-gradient(150deg,#E7EFE4,#CBDCC2)}
+  .p-img.c{background:linear-gradient(150deg,#E4EAF3,#C3D2E6)}
+  /* ===== 技能 ===== */
+  .skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .skill-card{padding:26px 28px}
+  .skill-card h4{font-size:16.5px;font-weight:800;margin-bottom:16px}
+  .skill-card h4 span{margin-right:8px}
+  /* ===== 兴趣 ===== */
+  .life-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+  .life-card{padding:26px 16px;text-align:center}
+  .life-card .icon{font-size:34px;margin-bottom:10px}
+  .life-card h4{font-size:15.5px;font-weight:800;margin-bottom:6px}
+  .life-card p{font-size:12.5px;color:var(--muted);line-height:1.6}
+  /* ===== 页脚 ===== */
+  .contact{background:linear-gradient(120deg,#F8ECE9 0%,#FAF7F2 50%,#EAF3EC 100%)}
+  .contact-card{max-width:620px;margin:0 auto;padding:40px 34px;text-align:center}
+  .contact-card h3{font-size:24px;font-weight:800;margin-bottom:10px}
+  .contact-card p{color:var(--muted);font-size:14px;margin-bottom:22px}
+  .foot-note{text-align:center;color:var(--muted);font-size:12.5px;padding:26px 16px 34px}
+  .foot-note a{color:var(--accent);text-decoration:none}
+  /* 渐入 */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+  /* ===== 移动端 ===== */
+  @media (max-width:860px){
+    .nav .links{display:none}
+    .hero{padding-top:96px}
+    .hero-inner{grid-template-columns:1fr;gap:44px}
+    .photo-col{order:-1}
+    .photo-card{width:min(260px,72vw)}
+    .now-card{right:2px}
+    .courses{grid-template-columns:repeat(2,1fr)}
+    .t-item{padding-left:58px}
+    .proj-card{grid-template-columns:1fr;padding:26px 24px}
+    .p-img{order:-1;height:170px}
+    .skill-grid{grid-template-columns:1fr}
+    .life-grid{grid-template-columns:repeat(2,1fr)}
+    section{padding:76px 16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">🎨 完整版预览 · 照片与邮箱为占位待替换,其余内容基于你的简历整理(请核对事实)</div>
+
+<nav class="nav">
+  <div class="avatar">🌸</div>
+  <div class="brand">PORTFOLIO</div>
+  <div class="links">
+    <a href="#top" data-sec="top" class="active">关于我</a>
+    <a href="#edu" data-sec="edu">教育背景</a>
+    <a href="#work" data-sec="work">工作经历</a>
+    <a href="#proj" data-sec="proj">项目展示</a>
+    <a href="#skills" data-sec="skills">技能特长</a>
+    <a href="#life" data-sec="life">兴趣爱好</a>
+  </div>
+  <a class="resume" href="#contact">简历.pdf ↗</a>
+</nav>
+
+<!-- ===== 首屏 ===== -->
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div>
+      <span class="pill"><span class="dot"></span>HELLO / 你好</span>
+      <h1>Hi,<br>我是
+        <span class="name-wrap">郑佳
+          <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M28 52c-10 0-16-7-14-15 2-7 9-10 15-9 1-9 9-15 18-14 7 1 12 5 14 11 7-3 15 0 18 7 3 8-3 17-12 18-8 1-32 2-39 2z"
+              fill="#BFD9F2" opacity=".9" stroke="#8FB7DE" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="42" cy="36" r="2.6" fill="#3E5C7A"/>
+            <circle cx="60" cy="36" r="2.6" fill="#3E5C7A"/>
+            <path d="M44 44c4 4 10 4 14 0" fill="none" stroke="#3E5C7A" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="35" cy="42" r="3.4" fill="#F5B8C0" opacity=".8"/>
+            <circle cx="67" cy="42" r="3.4" fill="#F5B8C0" opacity=".8"/>
+          </svg>
+        </span>
+      </h1>
+      <div class="role">电商运营 / E-commerce Operations</div>
+      <div class="motto"><b>个人理念</b>用数据读懂用户,用细节做出增长。</div>
+      <p class="intro">深圳大学供应链管理(供应链金融)本科,先后在影石 Insta360、安克创新、正浩 EcoFlow 三家智能硬件出海企业实习,走完「用户洞察 → 项目管理 → 电商运营」的完整链路,擅长把调研数据变成可落地的增长动作。</p>
+      <div class="chips">
+        <span class="chip">电商运营</span>
+        <span class="chip">用户洞察</span>
+        <span class="chip">竞品调研</span>
+        <span class="chip">出海&跨境</span>
+        <span class="chip">AI 提效</span>
+      </div>
+      <div class="btns">
+        <a class="btn btn-dark" href="#">下载简历</a>
+        <a class="btn btn-line" href="#contact">联系我</a>
+      </div>
+    </div>
+    <div class="photo-col">
+      <div class="photo-card">
+        <div class="photo-ph"><span>📷</span>这里放你的照片</div>
+      </div>
+      <div class="now-card"><em>NOW</em>深圳大学 · 26届毕业生<br>可立即到岗</div>
+    </div>
+  </div>
+  <span class="pill scroll-hint">继续下滑,探索更多 ↓</span>
+</header>
+
+<!-- ===== 01 教育背景 ===== -->
+<section id="edu">
+  <div class="wrap">
+    <div class="eyebrow reveal">01 / EDUCATION</div>
+    <h2 class="sec-title reveal">我的学习轨迹</h2>
+    <p class="sec-sub reveal">在鹏城读供应链,在实战里学运营。</p>
+
+    <div class="card school-single reveal">
+      <div class="img"><span>🏛️</span>深圳大学 · 校园照片位</div>
+      <div class="body">
+        <div class="date">2022.09 — 2026.06</div>
+        <div class="deg">本科 / 供应链管理(供应链金融)</div>
+        <h3>深圳大学</h3>
+        <p>主修供应链与金融交叉方向,数理与商业分析基础扎实。</p>
+      </div>
+    </div>
+
+    <div class="card info-card reveal">
+      <h4>荣誉与成就</h4>
+      <div class="chips">
+        <span class="chip">🥉 "互联网+" 国赛铜奖</span>
+        <span class="chip">⭐ 校级学习之星</span>
+        <span class="chip">💡 双创之星</span>
+        <span class="chip">🏅 优秀班干部</span>
+        <span class="chip">📋 累计 20 余项校级以上荣誉</span>
+      </div>
+    </div>
+
+    <div class="card info-card reveal">
+      <h4>主修课程亮点</h4>
+      <div class="courses">
+        <div class="course">运筹学</div>
+        <div class="course">供应链金融实务与分析</div>
+        <div class="course">公司金融</div>
+        <div class="course">统计学</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 工作经历 ===== -->
+<section id="work" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">02 / THE PRACTITIONER</div>
+    <h2 class="sec-title reveal">我在过往职场做过什么</h2>
+    <p class="sec-sub reveal">三段智能硬件出海企业实习,从用户洞察到项目管理,再到电商运营。</p>
+
+    <div class="timeline">
+      <div class="t-item reveal">
+        <div class="t-num">01</div>
+        <div class="card t-card">
+          <div class="date">2025.11 — 2026.04</div>
+          <h3>影石创新</h3><span class="en">INSTA360</span>
+          <div class="pos">电商运营实习生</div>
+          <ul>
+            <li>从 0-1 参与搭建电商智能 AI 客服与智能质检体系,平台响应速度控制在 3 秒内,实现年度降本 10 万元以上</li>
+            <li>基于各平台会话与进线咨询数据,拆解用户购买决策点与卡点,输出「顾虑—卖点—引导」FABE 转化框架</li>
+            <li>搭建导购标准化能力体系并落地外包团队培训,支撑双旦大促期间 GMV 与转化率提升 15%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-num">02</div>
+        <div class="card t-card">
+          <div class="date">2025.06 — 2025.10</div>
+          <h3>安克创新</h3><span class="en">ANKER</span>
+          <div class="pos">零售项目管理实习生</div>
+          <ul>
+            <li>深度参与 8 个新品项目落地,覆盖需求梳理、内容确认到区域释放的全流程</li>
+            <li>对接 GTM 挖掘新品卖点与曝光点,撰写 POSM 物料需求,助力海外区域销售与渠道伙伴理解产品价值</li>
+            <li>协调 PM、GTM、供应链与区域业务团队跟进交付节点,支持国际大型展会中的产品展示</li>
+          </ul>
+        </div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-num">03</div>
+        <div class="card t-card">
+          <div class="date">2024.12 — 2025.04</div>
+          <h3>正浩创新</h3><span class="en">ECOFLOW</span>
+          <div class="pos">用户市场洞察实习生</div>
+          <ul>
+            <li>系统分析欧洲、美国、非洲、日本等市场 C 端/B 端用户深度访谈,累计沉淀 30 余份标准化用户研究文档</li>
+            <li>搭建用户标签体系与精细化分层,构建全域用户购买旅程知识库,支撑用户运营策略与产品定位</li>
+            <li>从产品矩阵、使用场景、市场体量、用户口碑、营销打法多维度竞品对标,输出竞品分析与商业化优化方案</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 项目展示 ===== -->
+<section id="proj" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">03 / PROJECTS</div>
+    <h2 class="sec-title reveal">我做过的项目</h2>
+    <p class="sec-sub reveal">从校园品牌到乡村田野,再到 AI 提效实践。</p>
+
+    <div class="proj-list">
+      <div class="card proj-card reveal">
+        <div>
+          <div class="p-num">01</div>
+          <div class="p-meta">品牌校园运营 · 2024.03 — 2024.11</div>
+          <h3>华为花粉俱乐部</h3>
+          <div class="p-role">校园宣传负责人</div>
+          <ul>
+            <li>负责深大华为花粉 500 人社群的运营策划与用户互动,持续拉新促活</li>
+            <li>策划落地 4 场线上线下品牌活动,含全校千人「韵动会」</li>
+            <li>独立运营俱乐部公众号与小红书账号,产出原创内容放大品牌校园声量</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">社群运营</span><span class="chip">活动策划</span><span class="chip">新媒体</span>
+          </div>
+        </div>
+        <div class="p-img a"><span>🎪</span>活动照片位 project1.png</div>
+      </div>
+
+      <div class="card proj-card reveal">
+        <div>
+          <div class="p-num">02</div>
+          <div class="p-meta">社会调研 + 助农直播 · 2024.01 — 2024.02</div>
+          <h3>清华大学乡村振兴工作站</h3>
+          <div class="p-role">文旅产业调研员</div>
+          <ul>
+            <li>深入 10 余个古村落实地调研十余天,完成 300 份问卷设计与 70 余户居民访谈</li>
+            <li>协同完成增城文旅与产业发展调研报告,并向增城政府汇报资源整合与发展路径方案</li>
+            <li>参与助农直播全流程,3 小时直播累计观看 800+ 人次,促成订单约 60 单</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">实地调研</span><span class="chip">直播电商</span><span class="chip">助农</span>
+          </div>
+        </div>
+        <div class="p-img b"><span>🌾</span>调研/直播照片位 project2.png</div>
+      </div>
+
+      <div class="card proj-card reveal">
+        <div>
+          <div class="p-num">03</div>
+          <div class="p-meta">AI 提效实践 · 2025.11 — 2026.04</div>
+          <h3>电商智能 AI 客服 0-1 搭建</h3>
+          <div class="p-role">核心参与者 · 影石创新实习期间</div>
+          <ul>
+            <li>从 0-1 参与智能客服与智能质检体系搭建,对接供应商完成服务配置</li>
+            <li>输出机器人接线智能质检 SOP,将一线用户反馈回流至机器人配置与素材更新</li>
+            <li>形成智能线上营销销售闭环:响应速度 3 秒内,年度降本 10 万元以上</li>
+          </ul>
+          <div class="chips">
+            <span class="chip">AI 应用</span><span class="chip">流程自动化</span><span class="chip">降本增效</span>
+          </div>
+        </div>
+        <div class="p-img c"><span>🤖</span>配图位 project3.png</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 技能特长 ===== -->
+<section id="skills" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">04 / SKILLS</div>
+    <h2 class="sec-title reveal">技能图谱</h2>
+    <p class="sec-sub reveal">从洞察研究到运营落地,数据工具兜底的复合能力。</p>
+    <div class="skill-grid">
+      <div class="card skill-card reveal">
+        <h4><span>🚀</span>核心运营能力</h4>
+        <div class="chips">
+          <span class="chip">电商平台运营</span><span class="chip">用户运营</span>
+          <span class="chip">社群运营</span><span class="chip">导购体系搭建</span><span class="chip">直播电商</span>
+        </div>
+      </div>
+      <div class="card skill-card reveal">
+        <h4><span>🔍</span>洞察与研究</h4>
+        <div class="chips">
+          <span class="chip">用户调研与分层</span><span class="chip">竞品对标分析</span>
+          <span class="chip">渠道研究</span><span class="chip">GTM 支持</span><span class="chip">活动策划</span>
+        </div>
+      </div>
+      <div class="card skill-card reveal">
+        <h4><span>📊</span>数据与工具</h4>
+        <div class="chips">
+          <span class="chip">SQL</span><span class="chip">SPSS</span><span class="chip">Python</span>
+          <span class="chip">Excel · VLOOKUP · 透视表</span><span class="chip">Figma</span><span class="chip">WPS</span>
+        </div>
+      </div>
+      <div class="card skill-card reveal">
+        <h4><span>💡</span>软实力</h4>
+        <div class="chips">
+          <span class="chip">跨职能协作</span><span class="chip">项目管理</span>
+          <span class="chip">汇报表达</span><span class="chip">英语 CET-6</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 兴趣爱好 ===== -->
+<section id="life" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">05 / LIFE</div>
+    <h2 class="sec-title reveal">工作之外的我</h2>
+    <p class="sec-sub reveal">保持好奇,热爱生活,用丰富的体验滋养创造力。</p>
+    <div class="life-grid">
+      <div class="card life-card reveal"><div class="icon">🏮</div><h4>古装剧</h4><p>在东方美学里汲取灵感</p></div>
+      <div class="card life-card reveal"><div class="icon">🎬</div><h4>电影</h4><p>在别人的故事里看见世界</p></div>
+      <div class="card life-card reveal"><div class="icon">📷</div><h4>摄影</h4><p>用镜头记录生活的细节与光影</p></div>
+      <div class="card life-card reveal"><div class="icon">✍️</div><h4>书法</h4><p>一笔一画,练的是耐心与审美</p></div>
+      <div class="card life-card reveal"><div class="icon">🎾</div><h4>网球</h4><p>在挥拍与跑动中释放压力</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 页脚联系 ===== -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="card contact-card reveal">
+      <h3>让我们保持联系 👋</h3>
+      <p>对我的经历感兴趣,或想进一步交流?欢迎随时联系。</p>
+      <div class="btns" style="justify-content:center">
+        <a class="btn btn-dark" href="#">📮 求职邮箱(待替换)</a>
+        <a class="btn btn-line" href="#">下载简历</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="foot-note">© 2026 郑佳 · Made with AI & Care · <a href="#top">回到顶部 ↑</a></div>
+
+<script>
+  // 滚动渐入
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // 导航高亮跟随
+  const links = document.querySelectorAll('.nav .links a');
+  const secIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle('active', a.dataset.sec===e.target.id));
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('header[id], section[id]').forEach(s=>secIO.observe(s));
+</script>
+</body>
+</html>
