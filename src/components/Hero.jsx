@@ -2,6 +2,8 @@ import Chips from './Chips.jsx'
 import { hero, site } from '../data/content.js'
 
 export default function Hero() {
+  const profileImage = `${import.meta.env.BASE_URL}profile.webp`
+
   return (
     <header className="hero" id="top">
       <div className="hero-inner">
@@ -19,7 +21,7 @@ export default function Hero() {
         </div>
         <div className="photo-col">
           <div className="photo-card">
-            <img src="/profile.webp" alt="郑佳在深圳大学校园内与玩偶合影" fetchPriority="high" />
+            <img src={profileImage} alt="郑佳在深圳大学校园内与玩偶合影" fetchPriority="high" />
           </div>
           <div className="now-card"><em>NOW</em>{hero.status[0]}<br />{hero.status[1]}</div>
         </div>
