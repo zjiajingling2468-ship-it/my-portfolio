@@ -1,0 +1,11 @@
+node_modules/
+dist/
+tmp/
+.pnpm-store/
+dev.*.log
+.DS_Store
+*.local
+
+# Local source material; not needed for the deployed portfolio
+资料.md
+截屏*.png
